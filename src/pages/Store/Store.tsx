@@ -10,7 +10,12 @@ const Store = () => {
       <div className="grid grid-cols-3 mt-10 gap-x-2 gap-y-2">
         {storeArr.map(({ id, name, price }) => (
           <div className="col-span-1" key={id}>
-            <StoreCard name={name} price={price.label} value={price.value} />
+            <StoreCard
+              name={name}
+              price={price.label}
+              value={price.value}
+              id={id}
+            />
           </div>
         ))}
       </div>
