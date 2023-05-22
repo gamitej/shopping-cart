@@ -1,6 +1,5 @@
 import { useItemStore } from "@/state/store/useStore";
 import { Button } from "@mui/material";
-import { has } from "lodash";
 
 type storeCardProps = {
   id: string;
@@ -23,22 +22,16 @@ const StoreCard = ({ id, name, price }: storeCardProps) => {
     }));
   };
 
-  const handleInc = (id: string) => {
+  const handleIncDec = (id: string, val: number) => {
+    let update = items[id].quantity + val;
+    if (update < 0) {
+      update = 0;
+    }
     useItemStore.setState((state) => ({
       items: {
         ...state.items,
         [id]: {
-          quantity: items[id].quantity + 1,
-        },
-      },
-    }));
-  };
-  const handleDec = (id: string) => {
-    useItemStore.setState((state) => ({
-      items: {
-        ...state.items,
-        [id]: {
-          quantity: items[id].quantity - 1,
+          quantity: update,
         },
       },
     }));
@@ -50,13 +43,13 @@ const StoreCard = ({ id, name, price }: storeCardProps) => {
         <p>{name}</p>
         <p>{price}</p>
       </div>
-      {has(items, id) ? (
+      {items[id] && items[id].quantity !== 0 ? (
         <div className="flex gap-x-2">
-          <Button variant="contained" onClick={() => handleInc(id)}>
+          <Button variant="contained" onClick={() => handleIncDec(id, 1)}>
             +
           </Button>
           <p>{items[id].quantity} in cart </p>
-          <Button variant="contained" onClick={() => handleDec(id)}>
+          <Button variant="contained" onClick={() => handleIncDec(id, -1)}>
             -
           </Button>
         </div>
