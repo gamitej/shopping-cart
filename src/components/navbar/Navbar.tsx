@@ -1,11 +1,17 @@
-import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
-import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
-import IconButton from "@mui/material/IconButton";
-import MenuIcon from "@mui/icons-material/Menu";
 import { NavLink } from "react-router-dom";
+
+// mui
+import MenuIcon from "@mui/icons-material/Menu";
+import { IconButton, Typography, Toolbar, Box, AppBar } from "@mui/material";
+
+// icons
 import LocalGroceryStoreIcon from "@mui/icons-material/LocalGroceryStore";
+
+const navLinkArr = [
+  { to: "/", name: "Home" },
+  { to: "/about", name: "About" },
+  { to: "/store", name: "Store" },
+];
 
 export default function Navbar() {
   return (
@@ -28,19 +34,15 @@ export default function Navbar() {
 
           {/* Pages */}
           <div className="flex justify-around w-[20rem]">
-            <NavLink to="/">
-              <p>Home</p>
-            </NavLink>
-            <NavLink to="/about">
-              <p>About</p>
-            </NavLink>
-            <NavLink to="/store">
-              <p>Store</p>
-            </NavLink>
-            {/* Add To Cart */}
+            {navLinkArr?.map(({ to, name }, index) => (
+              <NavLink to={to} key={index}>
+                <p>{name}</p>
+              </NavLink>
+            ))}
+            {/* Add to cart */}
             <div className="relative">
               <LocalGroceryStoreIcon className="cursor-pointer" />
-              <div className="absolute bottom-4 -right-2 rounded-full bg-red-300 px-1">
+              <div className="absolute bottom-4 -right-2 rounded-full bg-red-400 px-1">
                 3
               </div>
             </div>
