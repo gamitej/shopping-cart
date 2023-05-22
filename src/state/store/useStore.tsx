@@ -1,11 +1,9 @@
 import { create } from "zustand";
 
 interface Store {
-  items: Map<string, undefined>;
-  setItems: () => void;
+  items: Record<string, Record<string, number>>;
 }
 
 export const useItemStore = create<Store>()((set) => ({
-  items: new Map<string, undefined>(),
-  setItems: () => set((state) => ({ ...state })),
+  items: {},
 }));
