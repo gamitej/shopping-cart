@@ -4,19 +4,19 @@ import Router from "./routes/Router";
 
 function App() {
   return (
-    <Suspense fallback={<Loading />}>
-      <div>
-        <Navbar />
+    <div>
+      <Navbar />
+      <Suspense fallback={<Loading />}>
         <Router />
-      </div>
-    </Suspense>
+      </Suspense>
+    </div>
   );
 }
 
 const Loading = () => {
   return (
     <div
-      className="h-full w-full flex justify-center
+      className="h-[90vh] w-full flex justify-center
    items-center"
     >
       Loading...
