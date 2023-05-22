@@ -6,6 +6,8 @@ import { IconButton, Typography, Toolbar, Box, AppBar } from "@mui/material";
 
 // icons
 import LocalGroceryStoreIcon from "@mui/icons-material/LocalGroceryStore";
+import { useItemStore } from "@/state/store/useStore";
+import { useEffect } from "react";
 
 const navLinkArr = [
   { to: "/", name: "Home" },
@@ -14,6 +16,17 @@ const navLinkArr = [
 ];
 
 export default function Navbar() {
+  const { items, setTotalQuant, totalItems } = useItemStore();
+
+  useEffect(() => {
+    let totalSum = 0;
+    Object.keys(items).map((key) => {
+      totalSum = totalSum + items[key].quantity;
+      return totalSum;
+    });
+    setTotalQuant(totalSum);
+  }, [items, setTotalQuant]);
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
@@ -42,9 +55,11 @@ export default function Navbar() {
             {/* Add to cart */}
             <div className="relative">
               <LocalGroceryStoreIcon className="cursor-pointer" />
-              <div className="absolute bottom-4 -right-2 rounded-full bg-red-400 px-1">
-                3
-              </div>
+              {totalItems > 0 && (
+                <div className="absolute bottom-4 -right-2 rounded-full bg-red-400 px-1">
+                  {totalItems}
+                </div>
+              )}
             </div>
           </div>
         </Toolbar>
