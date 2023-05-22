@@ -9,7 +9,7 @@ type storeCardProps = {
 };
 
 const StoreCard = ({ id, name, price }: storeCardProps) => {
-  const { items } = useItemStore();
+  const { items, setItems } = useItemStore();
 
   const handleItems = (id: string, value: number) => {
     useItemStore.setState((state) => ({
@@ -27,14 +27,7 @@ const StoreCard = ({ id, name, price }: storeCardProps) => {
     if (update < 0) {
       update = 0;
     }
-    useItemStore.setState((state) => ({
-      items: {
-        ...state.items,
-        [id]: {
-          quantity: update,
-        },
-      },
-    }));
+    setItems(id, update);
   };
 
   return (
